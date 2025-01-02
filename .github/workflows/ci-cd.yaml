@@ -33,11 +33,8 @@ jobs:
             - name: Install dependencies
               run: npm install
 
-            - name: Fix Jest Permissions
-              run: chmod +x ./node_modules/.bin/jest || true # Fix permissions if necessary
-
             - name: Run tests
-              run: npm test
+              run: npx jest # Use npx to run Jest
 
     deploy-infrastructure:
         runs-on: ubuntu-latest
