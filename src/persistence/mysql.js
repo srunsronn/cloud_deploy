@@ -9,7 +9,9 @@ const {
     MYSQL_PASSWORD: PASSWORD,
     MYSQL_DB: DB,
 } = process.env;
-console.log({ HOST, USER, PASSWORD, DB });
+console.log('DB_HOST:', process.env.MYSQL_HOST);
+console.log('DB_USER:', process.env.MYSQL_USER);
+console.log('DB_NAME:', process.env.MYSQL_DB);
 if (!HOST || !USER || !PASSWORD || !DB) {
     throw new Error(
         'Database connection variables are not set correctly. Please check your .env file.',
