@@ -1,6 +1,11 @@
-const db = require('../persistence');
+const db = require('../persistence/mysql');
 
 module.exports = async (req, res) => {
-    const items = await db.getItems();
-    res.send(items);
+    try {
+        const items = await db.getItems();
+        res.json(items);
+    } catch (error) {
+        console.error('Error fetching items:', error);
+        res.status(500).send('Internal Server Error');
+    }
 };

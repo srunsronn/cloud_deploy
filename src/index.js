@@ -1,6 +1,7 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
-const db = require('./persistence');
+const db = require('./persistence/mysql');
 const getItems = require('./routes/getItems');
 const addItem = require('./routes/addItem');
 const updateItem = require('./routes/updateItem');
@@ -14,12 +15,16 @@ app.post('/items', addItem);
 app.put('/items/:id', updateItem);
 app.delete('/items/:id', deleteItem);
 
-db.init().then(() => {
-    app.listen(3000, () => console.log('Listening on port 3000'));
-}).catch((err) => {
-    console.error(err);
-    process.exit(1);
-});
+console.log('Initializing database connection...');
+db.init()
+    .then(() => {
+        console.log('Database connected, starting server...');
+        app.listen(3000, () => console.log('Listening on port 3000'));
+    })
+    .catch((err) => {
+        console.error('Database initialization failed:', err);
+        process.exit(1);
+    });
 
 const gracefulShutdown = () => {
     db.teardown()

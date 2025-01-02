@@ -1,4 +1,4 @@
-const db = require('../persistence');
+const db = require('../persistence/mysql');
 
 module.exports = async (req, res) => {
     await db.updateItem(req.params.id, {
